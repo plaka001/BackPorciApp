@@ -1,11 +1,12 @@
-﻿using Dominio.Abstractions;
+﻿using Aplicacion.Abstractions.Data;
+using Dominio.Abstractions;
+using Dominio.EspacioFisicos.Repository;
+using Dominio.granjas.repository;
 using Infrastructura.Data;
-using Microsoft.Extensions.DependencyInjection;
+using Infrastructura.Repositorios;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Aplicacion.Abstractions.Data;
-using Dominio.granjas.repository;
-using Infrastructura.Repositorios;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Infrastructura;
 public static class DependencyInjection
@@ -24,6 +25,7 @@ public static class DependencyInjection
         });
 
         services.AddScoped<IGranjaRepository, GranjaRepository>();
+        services.AddScoped<IEspacioFisicoRepository, EspacioFisicoRepository>();
 
         services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<ApplicationDbContext>());
 

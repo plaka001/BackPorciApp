@@ -1,27 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Aplicacion.Abstractions;
+using FluentValidation;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Aplicacion;
-
-public static class DependencyInjection
+namespace Aplicacion
 {
-    public static IServiceCollection AddApplication(this IServiceCollection services)
+    public static class DependencyInjection
     {
-        services.AddMediatR(configuration =>
+        public static IServiceCollection AddApplication(this IServiceCollection services)
         {
-            configuration.RegisterServicesFromAssembly(typeof(DependencyInjection).Assembly);
-            //configuration.AddOpenBehavior(typeof(LoggingBehavior<,>));
-            //configuration.AddOpenBehavior(typeof(ValidationBehavior<,>));
+            // Configuración de MediatR
+            services.AddMediatR(config =>
+            {
+                config.RegisterServicesFromAssembly(typeof(DependencyInjection).Assembly);
 
-        });
-        //services.AddScoped<Crear>, RegisterUsuarioCommandValidator>();
-        //services.AddScoped<IValidator<ConfirmarCorreoCommand>, ConfirmarCorreoCommandValidator>();
-        //services.AddValidatorsFromAssembly(typeof(DependencyInjection).Assembly);
+                // Behaviors en el orden correcto
+                config.AddOpenBehavior(typeof(LoggingBehavior<,>));
+                config.AddOpenBehavior(typeof(ValidationBehavior<,>));
+            });
 
-        return services;
+            // Registro de validadores FluentValidation (CORRECCIÓN DEL NOMBRE DEL MÉTODO)
+            services.AddValidatorsFromAssembly(typeof(DependencyInjection).Assembly);
+
+
+            return services;
+        }
     }
 }

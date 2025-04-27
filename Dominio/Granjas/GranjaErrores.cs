@@ -4,7 +4,7 @@ namespace Dominio.Granjas;
 
 public class GranjaErrores
 {
-    public static Error GranjaExistente = new(
+    public static Error GranjaNoExistente = new(
      "Granja.Existente",
      "Ya existe la granja con este nombre"
     );
