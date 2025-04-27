@@ -1,13 +1,15 @@
 ﻿using Domain.Granjas;
+using Dominio.granjas.ObjectValues;
 using Dominio.Granjas;
 
 namespace Dominio.granjas.repository;
 
 public interface IGranjaRepository
 {
-    public void Agregar(Granja entity);
-    public void AgregarParametrosProduccion(ParametrosProduccion entity);
-    public void AgregarParametrosProduccionCalculados(ParametrosCalculados entity);
-
-    public  Task<Granja?> ObtenerGranjaByNombre(string Nombre);
+    void Agregar(Granja entity);
+    void AgregarParametrosProduccion(ParametrosProduccion entity);
+    void AgregarParametrosProduccionCalculados(ParametrosCalculados entity);
+    Task<Granja?> ObtenerGranjaByNombre(string Nombre);
+    Task<Granja?> ObtenerSegunId(GranjaId id, CancellationToken cancellationToken);
+    Task<ParametrosCalculados?> obtenerParametrsCalculados(GranjaId granjaId);
 }
