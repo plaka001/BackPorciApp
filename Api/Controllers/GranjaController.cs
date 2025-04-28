@@ -1,4 +1,6 @@
-﻿using Aplicacion.Granjas.CrearGranja;
+﻿using Aplicacion.EspacioFisico.Calcular;
+using Aplicacion.Granjas.CrearGranja;
+using Dominio.granjas.ObjectValues;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -25,4 +27,5 @@ public class GranjaController : Controller
         return Ok(result);
 
     }
+
 }

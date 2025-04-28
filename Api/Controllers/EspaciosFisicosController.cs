@@ -1,4 +1,5 @@
-﻿using Aplicacion.EspacioFisico.Crear;
+﻿using Aplicacion.EspacioFisico.Calcular;
+using Aplicacion.EspacioFisico.Crear;
 using Dominio.granjas.ObjectValues;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -24,5 +25,15 @@ public class EspaciosFisicosController : Controller
         var result = await _sender.Send(command);
         if (result.IsFailure) return BadRequest(result.Error);
         return Ok(result);
+    }
+
+    [HttpGet("ObtenerEspaciosFisicos")]
+    public async Task<IActionResult> ObtenerEspaciosFisicos(Guid granjaId)
+    {
+        var query = new ListarEspaciosFisicosQuery(granjaId);
+        var result = await _sender.Send(query);
+        if (result.IsFailure) return BadRequest(result.Error);
+        return Ok(result);
+
     }
 }

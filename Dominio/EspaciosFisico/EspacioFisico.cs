@@ -1,65 +1,96 @@
 ﻿using Dominio.Abstractions;
+using Dominio.Animales;
 using Dominio.EspacioFisicos.ObjectValues;
 using Dominio.granjas.ObjectValues;
 
-namespace Dominio.EspacioFisicos;
-
-public class EspacioFisico : Entity<EspacioFisicoId>
+namespace Dominio.EspacioFisicos
 {
-
-    public GranjaId GranjaId { get; private set; }
-    public string TipoEspacio { get; private set; }
-    public int CantidadEspacios { get; private set; }
-    public int CapacidadPorEspacio { get; private set; }
-    public int CapacidadRecomendada { get; private set; }
-    public int CapacidadReal { get; private set; }
-    public DateTime FechaCreacion { get; private set; }
-
-    private EspacioFisico(
-        EspacioFisicoId id,
-        GranjaId granjaId,
-        string tipoEspacio,
-        int cantidadEspacios,
-        int capacidadPorEspacio,
-        int capacidadRecomendada,
-        DateTime fechaCreacion) : base(id)
+    public class EspacioFisico : Entity<EspacioFisicoId>
     {
-        GranjaId = granjaId;
-        TipoEspacio = tipoEspacio;
-        CantidadEspacios = cantidadEspacios;
-        CapacidadPorEspacio = capacidadPorEspacio;
-        CapacidadRecomendada = capacidadRecomendada;
-        CapacidadReal = cantidadEspacios * capacidadPorEspacio;
-        FechaCreacion = fechaCreacion;
-    }
+        // Propiedades
+        public GranjaId GranjaId { get; private set; }
+        public string TipoEspacio { get; private set; }
+        public int CantidadEspacios { get; private set; }
+        public int CapacidadPorEspacio { get; private set; }
+        public int CapacidadRecomendada { get; private set; }
+        public CapacidadEspacio Capacidad { get; private set; }
+        public DateTime FechaCreacion { get; private set; }
 
-    public static EspacioFisico Create(
-        GranjaId granjaId,
-        string tipoEspacio,
-        int cantidadEspacios,
-        int capacidadPorEspacio = 1,
-        int capacidadRecomendada = 0)
-    {
+        // Constructor privado modificado
+        private EspacioFisico(
+            EspacioFisicoId id,
+            GranjaId granjaId,
+            string tipoEspacio,
+            int cantidadEspacios,
+            int capacidadPorEspacio,
+            int capacidadRecomendada,
+            DateTime fechaCreacion) : base(id)
+        {
+            GranjaId = granjaId;
+            TipoEspacio = tipoEspacio;
+            CantidadEspacios = cantidadEspacios;
+            CapacidadPorEspacio = capacidadPorEspacio;
+            CapacidadRecomendada = capacidadRecomendada;
+            FechaCreacion = fechaCreacion;
 
-        return new EspacioFisico(
-            new EspacioFisicoId(Guid.NewGuid()),
-            granjaId,
-            tipoEspacio,
-            cantidadEspacios,
-            capacidadPorEspacio,
-            capacidadRecomendada,
-            DateTime.UtcNow);
-    }
+            // Inicialización de Capacidad después de la construcción
+            Capacidad = CapacidadEspacio.Create(cantidadEspacios * capacidadPorEspacio);
+        }
 
-    // Método para actualizar capacidades
-    public void ActualizarCapacidades(int cantidadEspacios, int capacidadPorEspacio)
-    {
-        if (cantidadEspacios <= 0 || capacidadPorEspacio <= 0)
-            throw new ArgumentException("Los valores deben ser mayores a cero");
+        // Factory method
+        public static EspacioFisico Create(
+            GranjaId granjaId,
+            string tipoEspacio,
+            int cantidadEspacios,
+            int capacidadPorEspacio = 1,
+            int capacidadRecomendada = 0)
+        {
 
-        CantidadEspacios = cantidadEspacios;
-        CapacidadPorEspacio = capacidadPorEspacio;
-        CapacidadReal = cantidadEspacios * capacidadPorEspacio;
+            return new EspacioFisico(
+                EspacioFisicoId.New(),
+                granjaId,
+                tipoEspacio,
+                cantidadEspacios,
+                capacidadPorEspacio,
+                capacidadRecomendada,
+                DateTime.UtcNow);
+        }
+
+        // Métodos de negocio
+        public void ActualizarCapacidades(int cantidadEspacios, int capacidadPorEspacio)
+        {
+            if (cantidadEspacios <= 0 || capacidadPorEspacio <= 0)
+                throw new ArgumentException("Los valores deben ser mayores a cero");
+
+            CantidadEspacios = cantidadEspacios;
+            CapacidadPorEspacio = capacidadPorEspacio;
+            Capacidad = CapacidadEspacio.Create(cantidadEspacios * capacidadPorEspacio, Capacidad.CapacidadOcupada);
+        }
+
+        public void IncrementarCapacidadOcupada(int cantidad)
+        {
+            Capacidad = Capacidad.Incrementar(cantidad);
+        }
+
+        public void DecrementarCapacidadOcupada(int cantidad)
+        {
+            Capacidad = Capacidad.Decrementar(cantidad);
+        }
+
+        public bool TieneCapacidadDisponible(int cantidadAAgregar = 1)
+        {
+            return Capacidad.TieneCapacidadDisponible(cantidadAAgregar);
+        }
+
+        public bool EsTipoCorrectoParaEstadoProductivo(EstadoProductivo estadoProductivo)
+        {
+            return estadoProductivo switch
+            {
+                EstadoProductivo.Montas => TipoEspacio.Equals("Monta", StringComparison.OrdinalIgnoreCase),
+                EstadoProductivo.Gestacion => TipoEspacio.Equals("Gestacion", StringComparison.OrdinalIgnoreCase),
+                EstadoProductivo.Paridera => TipoEspacio.Equals("Paridera", StringComparison.OrdinalIgnoreCase),
+                _ => false
+            };
+        }
     }
 }
-
