@@ -14,6 +14,7 @@ public class CerdaCria : Entity<CerdaCriaId>
     public EspacioFisicoId EspacioFisicoId { get; private set; }
     public int? NumeroParto { get; private set; }
     public DateTime FechaCreacion { get; private set; }
+    public DateTime FechaUltimoTraslado { get; private set; }
     public Guid? PlanSanitarioId { get; private set; }
 
     private CerdaCria(
@@ -22,6 +23,7 @@ public class CerdaCria : Entity<CerdaCriaId>
         string identificacion,
         EstadoProductivo estadoProductivo,
         DateTime fechaIngreso,
+        DateTime fechaUltimoTraslado,
         EspacioFisicoId espacioFisicoId,
         int? numeroParto,
         Guid? planSanitarioId) : base(id)
@@ -34,6 +36,7 @@ public class CerdaCria : Entity<CerdaCriaId>
         NumeroParto = numeroParto;
         PlanSanitarioId = planSanitarioId;
         FechaCreacion = DateTime.UtcNow;
+        FechaUltimoTraslado = fechaUltimoTraslado;
     }
 
     public static CerdaCria Create(
@@ -41,6 +44,7 @@ public class CerdaCria : Entity<CerdaCriaId>
         string identificacion,
         EstadoProductivo estadoProductivo,
         DateTime fechaIngreso,
+        DateTime fechaUltimoTraslado,
         EspacioFisicoId espacioFisicoId,
         int? numeroParto = null,
         Guid? planSanitarioId = null)
@@ -58,6 +62,7 @@ public class CerdaCria : Entity<CerdaCriaId>
             identificacion,
             estadoProductivo,
             fechaIngreso,
+            fechaUltimoTraslado,
             espacioFisicoId,
             numeroParto,
             planSanitarioId);
@@ -76,5 +81,21 @@ public class CerdaCria : Entity<CerdaCriaId>
 
         NumeroParto = numeroParto;
         EstadoProductivo = EstadoProductivo.Paridera;
+    }
+
+    public void Trasladar(EspacioFisicoId nuevoEspacioId, DateTime fechaTraslado, EstadoProductivo estadoProductivo)
+    {
+        if (nuevoEspacioId == null)
+            throw new ArgumentException("El espacio físico no puede ser nulo");
+
+        if (fechaTraslado > DateTime.UtcNow)
+            throw new ArgumentException("La fecha de traslado no puede ser futura");
+
+        EspacioFisicoId = nuevoEspacioId;
+        FechaUltimoTraslado = fechaTraslado;
+        EstadoProductivo = estadoProductivo;
+
+        // Opcional: Evento de dominio para notificar el traslado
+        // AddDomainEvent(new CerdaTrasladada(Id, nuevoEspacioId, fechaTraslado));
     }
 }

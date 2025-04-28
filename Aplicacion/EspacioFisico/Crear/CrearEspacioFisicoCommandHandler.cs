@@ -49,7 +49,7 @@ public sealed class CrearEspacioFisicoCommandHandler : ICommandHandler<CrearEspa
     {
         { TipoEspacio.Monta, x => x.EspaciosMontas },
         { TipoEspacio.Gestacion, x => x.EspaciosGestacion },
-        { TipoEspacio.Parideras, x => x.EspaciosParideras },
+        { TipoEspacio.Paridera, x => x.EspaciosParideras },
         { TipoEspacio.Precebo, x => x.EspaciosPrecebo },
         { TipoEspacio.Ceba, x => x.EspaciosCeba }
     };

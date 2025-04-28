@@ -4,6 +4,11 @@
 Todos los cambios destacables del orquestador de validació están documentados en este archivo
 
 
+## [1.2.0] - 2025-04-27
+
+### Add
+Trasladar cerda de cria
+
 ## [1.1.0] - 2025-04-27
 
 ### Add
