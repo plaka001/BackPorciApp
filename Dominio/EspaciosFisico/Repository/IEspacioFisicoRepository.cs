@@ -1,9 +1,10 @@
-﻿
-using Dominio.EspacioFisicos;
+﻿using Dominio.EspacioFisicos.ObjectValues;
 namespace Dominio.EspacioFisicos.Repository;
 
 public interface IEspacioFisicoRepository
 {
     public void Agregar(EspacioFisico entity);
-    
+
+    Task<EspacioFisico?> ObtenerSegunId(EspacioFisicoId id,CancellationToken cancellationToken = default);
+    public void Actualizar(EspacioFisico entity);
 }

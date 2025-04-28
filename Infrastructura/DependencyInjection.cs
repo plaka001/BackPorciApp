@@ -1,5 +1,6 @@
 ﻿using Aplicacion.Abstractions.Data;
 using Dominio.Abstractions;
+using Dominio.Animales.Repository;
 using Dominio.EspacioFisicos.Repository;
 using Dominio.granjas.repository;
 using Infrastructura.Data;
@@ -26,6 +27,7 @@ public static class DependencyInjection
 
         services.AddScoped<IGranjaRepository, GranjaRepository>();
         services.AddScoped<IEspacioFisicoRepository, EspacioFisicoRepository>();
+        services.AddScoped<IAnimalesRepository, AnimalesRepository>();
 
         services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<ApplicationDbContext>());
 

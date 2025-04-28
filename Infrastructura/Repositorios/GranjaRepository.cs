@@ -24,7 +24,16 @@ internal class GranjaRepository : Repository<Granja, GranjaId>, IGranjaRepositor
 
     public async Task<ParametrosCalculados?> obtenerParametrsCalculados(GranjaId granjaId)
     {
+        try
+        {
         return await DbContext.Set<ParametrosCalculados>().FirstOrDefaultAsync(x => x.GranjaId == granjaId)!;
+
+        }
+        catch (Exception ex)
+        {
+
+            throw;
+        }
     }
 
     public async Task<Granja?> ObtenerGranjaByNombre(string Nombre)
