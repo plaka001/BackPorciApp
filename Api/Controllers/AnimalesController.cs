@@ -1,4 +1,5 @@
 ﻿using Aplicacion.Animales.CerdaDeCria.Crear;
+using Aplicacion.Animales.CerdaDeCria.Parto.Crear;
 using Aplicacion.Animales.CerdaDeCria.Trasladar;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -30,6 +31,15 @@ public class AnimalesController : ControllerBase
     public async Task<IActionResult> TrasladarCerdaCria([FromBody] TrasladarCerdaCriaRequest request, CancellationToken cancellationToken)
     {
         var command = new TrasladarCerdaCriaCommand(request.EspacioFisicoOld, request.EspacioFisicoNew,request.IdentificacionCerda,request.EstadoProductivo);
+        var result = await _sender.Send(command);
+        if (result.IsFailure) return BadRequest(result.Error);
+        return Ok(result);
+    }
+
+    [HttpPost("RegistrarParto")]
+    public async Task<IActionResult> RegistrarParto([FromBody] CrearPartoRequest request, CancellationToken cancellationToken)
+    {
+        var command = new CrearPartoCommand(request.CerdaId,request.CantidadVivos,request.CantidadMuertos,request.PesoPromedioVivos,request.PesoPromedioMuertos,request.UsoOxitocina,request.Comentario);
         var result = await _sender.Send(command);
         if (result.IsFailure) return BadRequest(result.Error);
         return Ok(result);

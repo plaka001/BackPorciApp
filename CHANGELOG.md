@@ -3,6 +3,10 @@
 
 Todos los cambios destacables del orquestador de validació están documentados en este archivo
 
+## [1.3.0] - 2025-04-27
+
+### Add
+Registrar parto
 
 ## [1.2.0] - 2025-04-27
 
