@@ -79,7 +79,7 @@ public class CerdaCria : Entity<CerdaCriaId>
         if (numeroParto <= 0)
             throw new ArgumentException("El número de parto debe ser positivo");
 
-        NumeroParto = numeroParto;
+        NumeroParto += numeroParto;
         EstadoProductivo = EstadoProductivo.Paridera;
     }
 

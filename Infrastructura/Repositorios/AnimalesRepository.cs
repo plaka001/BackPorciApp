@@ -20,4 +20,10 @@ internal class AnimalesRepository : Repository<CerdaCria, CerdaCriaId>, IAnimale
     {
         return await DbContext.Set<CerdaCria>().FirstOrDefaultAsync(x => x.Identificacion == identificacion)!;
     }
+
+
+    public void AgregarParto(Parto entity)
+    {
+        DbContext.Add(entity);
+    }
 }
