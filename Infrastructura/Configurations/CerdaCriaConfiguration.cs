@@ -51,6 +51,11 @@ public class CerdaCriaConfiguration : IEntityTypeConfiguration<CerdaCria>
             .HasColumnType("datetime2")
             .IsRequired();
 
+        builder.Property(c => c.FechaUltimoTraslado)
+           .HasColumnName("FechaUltimoTraslado")
+           .HasColumnType("datetime2")
+           .IsRequired();
+
         // Relación con EspacioFisico
         builder.Property(c => c.EspacioFisicoId)
             .HasColumnName("EspacioFisicoId")

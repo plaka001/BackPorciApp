@@ -49,6 +49,7 @@ public sealed class CrearCerdaCriaCommandHandler : ICommandHandler<CrearCerdaCri
             request.Identificacion,
             request.EstadoProductivo,
             DateTime.Now,
+            DateTime.Now,
             new EspacioFisicoId(request.EspacioFisicoId),
             request.NumeroDeParto,
             request.PlanSanitarioId);
