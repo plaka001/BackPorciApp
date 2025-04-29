@@ -39,7 +39,7 @@ public class AnimalesController : ControllerBase
     [HttpPost("RegistrarParto")]
     public async Task<IActionResult> RegistrarParto([FromBody] CrearPartoRequest request, CancellationToken cancellationToken)
     {
-        var command = new CrearPartoCommand(request.CerdaId,request.CantidadVivos,request.CantidadMuertos,request.PesoPromedioVivos,request.PesoPromedioMuertos,request.UsoOxitocina,request.Comentario);
+        var command = new CrearPartoCommand(request.CerdaId,request.CantidadVivos,request.CantidadMuertos,request.PesoPromedioVivos,request.PesoPromedioMuertos,request.UsoOxitocina,request.Comentario,request.FechaDeParto);
         var result = await _sender.Send(command);
         if (result.IsFailure) return BadRequest(result.Error);
         return Ok(result);

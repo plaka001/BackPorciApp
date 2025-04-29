@@ -2,5 +2,5 @@
 
 namespace Aplicacion.Animales.CerdaDeCria.Parto.Crear;
 
-public record class CrearPartoCommand(Guid CerdaId, int CantidadVivos, int CantidadMuertos, decimal PesoPromedioVivos, decimal PesoPromedioMuertos, bool UsoOxitocina, string Comentario) : ICommand;
+public record class CrearPartoCommand(Guid CerdaId, int CantidadVivos, int CantidadMuertos, decimal PesoPromedioVivos, decimal PesoPromedioMuertos, bool UsoOxitocina, string Comentario,DateTime FechaDeParto) : ICommand;
 

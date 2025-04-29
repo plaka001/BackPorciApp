@@ -3,6 +3,11 @@
 
 Todos los cambios destacables del orquestador de validació están documentados en este archivo
 
+## [1.3.0] - 2025-04-8
+
+### Fixed
+Registrar parto se agrega parametro fecha de parto y se ajusta handle crear parto
+
 ## [1.3.0] - 2025-04-27
 
 ### Add
