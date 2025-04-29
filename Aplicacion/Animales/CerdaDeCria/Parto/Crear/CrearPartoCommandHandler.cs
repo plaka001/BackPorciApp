@@ -24,8 +24,9 @@ public sealed class CrearPartoCommandHandler : ICommandHandler<CrearPartoCommand
             return Result.Failure(CerdaCriaErrores.NoEncontrada);
 
 
-        cerdaExistente.RegistrarParto(1);
-        var parto = Dominio.Animales.Parto.Create(new CerdaCriaId( request.CerdaId),DateTime.Now,request.CantidadVivos,request.CantidadMuertos,request.PesoPromedioVivos,request.PesoPromedioMuertos,request.UsoOxitocina,request.Comentario);
+        cerdaExistente.RegistrarParto();
+        var parto = Dominio.Animales.Parto.Create(new CerdaCriaId( request.CerdaId),request.FechaDeParto,request.CantidadVivos,request.CantidadMuertos,request.PesoPromedioVivos,request.PesoPromedioMuertos,request.UsoOxitocina,request.Comentario);
+        _animalesRepository.Actualizar(cerdaExistente);
         _animalesRepository.AgregarParto(parto);
         await _unitOfWork.SaveChangesAsync();
 
