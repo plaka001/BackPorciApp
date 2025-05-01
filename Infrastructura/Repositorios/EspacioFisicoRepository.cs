@@ -13,4 +13,13 @@ internal class EspacioFisicoRepository : Repository<EspacioFisico, EspacioFisico
     {
     }
 
+    public async Task<EspacioFisico?> ObtenerSegunTipo(TipoEspacio tipoEspacio ,CancellationToken cancellationToken = default)
+    {
+        return await DbContext.Set<EspacioFisico>()
+            .Where(e => e.TipoEspacio == tipoEspacio.ToString() &&
+                        e.Capacidad.CapacidadOcupada < e.Capacidad.CapacidadMaxima)
+            .OrderBy(e => e.Capacidad.CapacidadOcupada) // opcional: para usar el menos lleno
+            .FirstOrDefaultAsync(cancellationToken);
+    }
+
 }

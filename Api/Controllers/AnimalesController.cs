@@ -1,6 +1,8 @@
 ﻿using Aplicacion.Animales.CerdaDeCria.Crear;
 using Aplicacion.Animales.CerdaDeCria.Parto.Crear;
 using Aplicacion.Animales.CerdaDeCria.Trasladar;
+using Aplicacion.Animales.Lechones.Destete;
+using Aplicacion.Animales.Lechones.Precebo;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -40,6 +42,26 @@ public class AnimalesController : ControllerBase
     public async Task<IActionResult> RegistrarParto([FromBody] CrearPartoRequest request, CancellationToken cancellationToken)
     {
         var command = new CrearPartoCommand(request.CerdaId,request.CantidadVivos,request.CantidadMuertos,request.PesoPromedioVivos,request.PesoPromedioMuertos,request.UsoOxitocina,request.Comentario,request.FechaDeParto);
+        var result = await _sender.Send(command);
+        if (result.IsFailure) return BadRequest(result.Error);
+        return Ok(result);
+    }
+
+    [HttpPost("RegistrarDestete")]
+    public async Task<IActionResult> RegistrarDestete([FromBody] RegistrarDesteteRequest request, CancellationToken cancellationToken)
+    {
+        var command = new RegistrarDesteteCommand(request.PartoId,request.FechaDestete,request.CantidadVivos,request.CantidadMuertos,request.PesoPromedio,request.Comentario);
+        var result = await _sender.Send(command);
+        if (result.IsFailure) return BadRequest(result.Error);
+        return Ok(result);
+    }
+
+
+
+    [HttpPost("RegistrarPrecebo")]
+    public async Task<IActionResult> RegistrarPrecebo([FromBody] CrearIngresoPreceboRequest request, CancellationToken cancellationToken)
+    {
+        var command = new CrearIngresoPreceboCommand(request.DesteteId,request.FechaIngreso,request.PesoPromedio,request.Comentario);
         var result = await _sender.Send(command);
         if (result.IsFailure) return BadRequest(result.Error);
         return Ok(result);

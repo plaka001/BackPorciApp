@@ -1,5 +1,5 @@
 ﻿using Dominio.Abstractions;
-using Dominio.Animales;
+using Dominio.Animales.General;
 using Dominio.EspacioFisicos.ObjectValues;
 using Dominio.granjas.ObjectValues;
 

@@ -1,5 +1,6 @@
 ﻿using Domain.Granjas;
-using Dominio.Animales;
+using Dominio.Animales.CerdasCria;
+using Dominio.Animales.General;
 using Dominio.Animales.ObjectValues;
 using Dominio.EspacioFisicos;
 using Dominio.EspacioFisicos.ObjectValues;
