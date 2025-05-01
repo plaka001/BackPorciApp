@@ -1,9 +1,10 @@
 ﻿using Dominio.Abstractions;
+using Dominio.Animales.General;
 using Dominio.Animales.ObjectValues;
 using Dominio.EspacioFisicos.ObjectValues;
 using Dominio.granjas.ObjectValues;
 
-namespace Dominio.Animales;
+namespace Dominio.Animales.CerdasCria;
 
 public class CerdaCria : Entity<CerdaCriaId>
 {

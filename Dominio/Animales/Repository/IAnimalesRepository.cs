@@ -1,10 +1,12 @@
-﻿using Dominio.Animales.ObjectValues;
+﻿using Dominio.Animales.CerdasCria;
+using Dominio.Animales.Lechones;
+using Dominio.Animales.ObjectValues;
 
 namespace Dominio.Animales.Repository;
 
 public interface IAnimalesRepository
 {
-    Task<CerdaCria> ObtenerSegunId(
+    Task<CerdaCria?> ObtenerSegunId(
        CerdaCriaId id,
        CancellationToken cancellationToken = default
    );
@@ -16,5 +18,17 @@ public interface IAnimalesRepository
 
     public void AgregarParto(Parto entity);
 
+    public void AgregarDestete(Destete entity);
 
+
+    Task<Parto?> ObtenerSegunId(
+     PartoId id,
+     CancellationToken cancellationToken = default
+ );
+
+    Task<Destete?> ObtenerSegunId(
+    DesteteId id,
+    CancellationToken cancellationToken = default
+);
+    void agregarPrecebo(Precebo entity);
 }

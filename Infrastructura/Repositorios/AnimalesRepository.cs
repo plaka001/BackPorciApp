@@ -1,4 +1,7 @@
-﻿using Dominio.Animales;
+﻿using Dominio.Abstractions;
+using Dominio.Animales;
+using Dominio.Animales.CerdasCria;
+using Dominio.Animales.Lechones;
 using Dominio.Animales.ObjectValues;
 using Dominio.Animales.Repository;
 using Microsoft.EntityFrameworkCore;
@@ -23,6 +26,26 @@ internal class AnimalesRepository : Repository<CerdaCria, CerdaCriaId>, IAnimale
 
 
     public void AgregarParto(Parto entity)
+    {
+        DbContext.Add(entity);
+    }
+
+    public void AgregarDestete(Destete entity)
+    {
+        DbContext.Add(entity);
+    }
+
+    public async Task<Parto?> ObtenerSegunId(PartoId id, CancellationToken cancellationToken = default)
+    {
+        return await DbContext.Set<Parto>().FirstOrDefaultAsync(x => x.Id == id) ;
+    }
+
+    public async Task<Destete?> ObtenerSegunId(DesteteId id, CancellationToken cancellationToken = default)
+    {
+        return await DbContext.Set<Destete>().FirstOrDefaultAsync(x => x.Id == id)!;
+    }
+
+    public void agregarPrecebo(Precebo entity)
     {
         DbContext.Add(entity);
     }

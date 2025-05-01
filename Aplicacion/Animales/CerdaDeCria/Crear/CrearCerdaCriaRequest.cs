@@ -1,4 +1,4 @@
-﻿using Dominio.Animales;
+﻿using Dominio.Animales.General;
 
 namespace Aplicacion.Animales.CerdaDeCria.Crear;
 

@@ -1,5 +1,5 @@
 ﻿using Aplicacion.Abstractions.Messaging;
-using Dominio.Animales;
+using Dominio.Animales.General;
 
 namespace Aplicacion.Animales.CerdaDeCria.Trasladar;
 
