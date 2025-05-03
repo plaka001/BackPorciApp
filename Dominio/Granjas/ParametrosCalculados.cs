@@ -19,7 +19,7 @@ public class ParametrosCalculados : Entity<ParametrosCalculadosId>
     public DateTime FechaCalculo { get; private set; }
 
     // Constructor privado
-    private ParametrosCalculados(
+    protected ParametrosCalculados(
         ParametrosCalculadosId id,
         GranjaId granjaId,
         int numeroGrupos,
@@ -133,7 +133,7 @@ public class ParametrosCalculados : Entity<ParametrosCalculadosId>
     #endregion
 
     // Método para actualizar cálculos si los parámetros cambian
-    public void Recalcular(Granja granja, ParametrosProduccion parametros)
+    public  virtual void Recalcular(Granja granja, ParametrosProduccion parametros)
     {
         NumeroGrupos = CalcularNumeroGrupos(parametros);
         CerdasPorGrupo = CalcularCerdasPorGrupo(granja, NumeroGrupos);

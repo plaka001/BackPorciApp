@@ -26,7 +26,7 @@ public class RegistrarSalidaCebaCommandHandler : ICommandHandler<RegistrarSalida
         var ceba = await _animalesRepository.ObtenerSegunId(new CebaId(request.CebaId));
         if (ceba == null) return Result.Failure(CebaErrores.CebaNoEncontrada);
         var salidaCeba = SalidaCeba.Create(new CebaId(request.CebaId), request.FechaSalida, request.PesoPromedioFinal, request.CantidadMuertos, request.CantidadVivos);
-        ceba.RegistrarSalida(request.PesoPromedioFinal,request.FechaSalida,request.CantidadVivos);
+        ceba.RegistrarSalida(request.PesoPromedioFinal,request.FechaSalida,request.CantidadMuertos);
 
         var EspacioFisico = await _espacioFisicosRepository.ObtenerSegunId(ceba.EspacioFisicoId);
         if (EspacioFisico == null) return Result.Failure(EspacioFisicoErrores.EspacioFisicoNoExistente);

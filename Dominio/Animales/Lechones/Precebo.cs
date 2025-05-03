@@ -18,7 +18,7 @@ namespace Dominio.Animales.Lechones
         public decimal? PesoPromedioFinal { get; private set; }
         public DateTime? FechaSalida { get; private set; }
 
-        private Precebo(
+        protected Precebo(
             PreceboId id,
             DesteteId desteteId,
             DateTime fechaIngreso,
@@ -77,7 +77,7 @@ namespace Dominio.Animales.Lechones
         }
 
         // Método para registrar salida de precebo
-        public void RegistrarSalida(decimal pesoPromedioFinal, DateTime fechaSalida, int cantidadMuertos = 0)
+        public virtual void RegistrarSalida(decimal pesoPromedioFinal, DateTime fechaSalida, int cantidadMuertos = 0)
         {
             if (fechaSalida < FechaIngreso)
                 throw new ArgumentException("La fecha de salida no puede ser anterior a la fecha de ingreso");

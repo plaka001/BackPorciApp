@@ -13,7 +13,7 @@ public class Destete : Entity<DesteteId>
     public string Comentario { get; private set; }
     public DateTime FechaCreacion { get; private set; }
 
-    private Destete(
+    protected Destete(
         DesteteId id,
         PartoId partoId,
         DateTime fechaDestete,

@@ -23,7 +23,7 @@ public sealed class CrearGranjaCommandHandler : ICommandHandler<CrearGranjaComma
         var granjaExistente = await _repository.ObtenerGranjaByNombre(request.Nombre);
         if (granjaExistente != null) return Result.Failure(GranjaErrores.GranjaNoExistente);
 
-        var granja = Granja.Create(request.Nombre, request.Ubicacion ?? "", request.NumeroCerdasCria, request.FechaInicioOperaciones);
+        var granja = Granja.Create(request.Nombre, request.Ubicacion!, request.NumeroCerdasCria, request.FechaInicioOperaciones);
         _repository.Agregar(granja);
 
         // inserta parametros

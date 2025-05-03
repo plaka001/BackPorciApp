@@ -15,7 +15,7 @@ public class Parto : Entity<PartoId>
     public string? Comentario { get; private set; }
     public DateTime FechaCreacion { get; private set; }
 
-    private Parto(
+    protected Parto(
         PartoId id,
         CerdaCriaId cerdaCriaId,
         DateTime fechaParto,
@@ -51,7 +51,7 @@ public class Parto : Entity<PartoId>
         if (fechaParto > DateTime.UtcNow)
             throw new ArgumentException("La fecha de parto no puede ser futura");
 
-        if (cantidadVivos < 0 || cantidadMuertos < 0)
+        if (cantidadVivos <= 0 || cantidadMuertos <= 0)
             throw new ArgumentException("Las cantidades no pueden ser negativas");
 
         return new Parto(
@@ -66,7 +66,7 @@ public class Parto : Entity<PartoId>
             comentario);
     }
 
-    public void ActualizarComentario(string nuevoComentario)
+    public virtual void ActualizarComentario(string nuevoComentario)
     {
         Comentario = nuevoComentario;
     }

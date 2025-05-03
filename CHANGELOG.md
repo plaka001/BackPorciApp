@@ -1,8 +1,13 @@
 # Changelog
 
 
-Todos los cambios destacables del orquestador de validació están documentados en este archivo
+Todos los cambios destacables del back están documentados en este archivo
 
+
+## [1.6.0] - 2025-05-03
+
+### Add
+Creacion pruebas unitarias de todo lo que se ha implementado hasta este punto 
 
 
 ## [1.5.0] - 2025-05-02
