@@ -17,7 +17,7 @@ public class Ceba : Entity<CebaId>
     public string Comentario { get; private set; }
     public DateTime FechaCreacion { get; private set; }
 
-    private Ceba(
+    protected Ceba(
         CebaId id,
         PreceboId preceboId,
         DateTime fechaIngreso,
@@ -76,7 +76,7 @@ public class Ceba : Entity<CebaId>
     }
 
     // Método para registrar salida de ceba
-    public void RegistrarSalida(decimal pesoPromedioFinal, DateTime fechaSalida, int cantidadMuertos = 0)
+    public virtual void RegistrarSalida(decimal pesoPromedioFinal, DateTime fechaSalida, int cantidadMuertos = 0)
     {
         if (fechaSalida < FechaIngreso)
             throw new ArgumentException("La fecha de salida no puede ser anterior a la fecha de ingreso");

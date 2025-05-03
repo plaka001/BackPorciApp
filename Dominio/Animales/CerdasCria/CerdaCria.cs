@@ -18,7 +18,7 @@ public class CerdaCria : Entity<CerdaCriaId>
     public DateTime FechaUltimoTraslado { get; private set; }
     public Guid? PlanSanitarioId { get; private set; }
 
-    private CerdaCria(
+    protected CerdaCria(
         CerdaCriaId id,
         GranjaId granjaId,
         string identificacion,
@@ -75,7 +75,7 @@ public class CerdaCria : Entity<CerdaCriaId>
         EstadoProductivo = nuevoEstado;
     }
 
-    public void RegistrarParto()
+    public virtual void RegistrarParto()
     {
         NumeroParto += 1;
         EstadoProductivo = EstadoProductivo.Paridera;

@@ -49,7 +49,7 @@ public sealed class CrearCerdaCriaCommandHandler : ICommandHandler<CrearCerdaCri
             new GranjaId(request.GranjaId),
             request.Identificacion,
             request.EstadoProductivo,
-            DateTime.Now,
+            request.FechaIngreso,
             DateTime.Now,
             new EspacioFisicoId(request.EspacioFisicoId),
             request.NumeroDeParto,

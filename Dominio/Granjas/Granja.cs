@@ -10,7 +10,7 @@ public class Granja : Entity<GranjaId>
     public int NumeroCerdasCria { get; private set; }
     public DateTime FechaCreacion { get; private set; }
 
-    private Granja(
+    protected Granja(
         GranjaId id,
         string nombre,
         string ubicacion,

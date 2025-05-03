@@ -27,7 +27,7 @@ public class ParametrosProduccion : Entity<ParametrosProduccionId>
     public decimal MortalidadPrecebo { get; private set; }
     public decimal MortalidadCeba { get; private set; }
 
-    private ParametrosProduccion(
+    protected ParametrosProduccion(
         ParametrosProduccionId id,
         GranjaId granjaId,
         int duracionGestacion,

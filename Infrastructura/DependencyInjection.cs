@@ -28,6 +28,7 @@ public static class DependencyInjection
         services.AddScoped<IGranjaRepository, GranjaRepository>();
         services.AddScoped<IEspacioFisicoRepository, EspacioFisicoRepository>();
         services.AddScoped<IAnimalesRepository, AnimalesRepository>();
+        services.AddScoped<IDapperWrapper, DapperWrapper>();
 
         services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<ApplicationDbContext>());
 
