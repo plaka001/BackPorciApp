@@ -4,6 +4,12 @@
 Todos los cambios destacables del orquestador de validació están documentados en este archivo
 
 
+
+## [1.5.0] - 2025-05-02
+
+### Add
+Registrar ceba entrada y salida 
+
 ## [1.4.0] - 2025-05-01
 
 ### Add

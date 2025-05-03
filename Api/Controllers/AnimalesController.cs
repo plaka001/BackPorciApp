@@ -1,6 +1,8 @@
 ﻿using Aplicacion.Animales.CerdaDeCria.Crear;
 using Aplicacion.Animales.CerdaDeCria.Parto.Crear;
 using Aplicacion.Animales.CerdaDeCria.Trasladar;
+using Aplicacion.Animales.Lechones.Ceba.RegistrarEntrada;
+using Aplicacion.Animales.Lechones.Ceba.RegistrarSalida;
 using Aplicacion.Animales.Lechones.Destete;
 using Aplicacion.Animales.Lechones.Precebo;
 using MediatR;
@@ -62,6 +64,24 @@ public class AnimalesController : ControllerBase
     public async Task<IActionResult> RegistrarPrecebo([FromBody] CrearIngresoPreceboRequest request, CancellationToken cancellationToken)
     {
         var command = new CrearIngresoPreceboCommand(request.DesteteId,request.FechaIngreso,request.PesoPromedio,request.Comentario);
+        var result = await _sender.Send(command);
+        if (result.IsFailure) return BadRequest(result.Error);
+        return Ok(result);
+    }
+
+    [HttpPost("RegistrarCeba")]
+    public async Task<IActionResult> RegistrarCeba([FromBody] RegistrarEntradaCebaRequest request, CancellationToken cancellationToken)
+    {
+        var command = new RegistrarEntradaCebaCommand(request.PreceboId,request.FechaIngreso,request.CantidadInicial,request.PesoPromedioInicial,request.Comentario);
+        var result = await _sender.Send(command);
+        if (result.IsFailure) return BadRequest(result.Error);
+        return Ok(result);
+    }
+
+    [HttpPost("RegistrarSalidaCeba")]
+    public async Task<IActionResult> RegistrarSalidaCeba([FromBody] RegistrarSalidaCebaRequest request, CancellationToken cancellationToken)
+    {
+        var command = new RegistrarSalidaCebaCommand(request.CebaId,request.FechaSalida,request.PesoPromedioFinal,request.CantidadVivos,request.CantidadMuertos);
         var result = await _sender.Send(command);
         if (result.IsFailure) return BadRequest(result.Error);
         return Ok(result);
