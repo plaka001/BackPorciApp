@@ -23,7 +23,7 @@ public class EspacioFisicoErrores
 
     public static Error TipoEspacioIncorrectoOSinCapacidad = new(
      "EspacioFisico.TipoEspacioIncorrecto",
-     "El tipo de espacio no es correcto con la etapa de la cerda o no hay capacidad"
+     "El tipo de espacio no es correcto con la etapa  o no hay capacidad"
     );
 
 }

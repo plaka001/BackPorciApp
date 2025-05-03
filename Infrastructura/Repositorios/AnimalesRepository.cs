@@ -49,4 +49,24 @@ internal class AnimalesRepository : Repository<CerdaCria, CerdaCriaId>, IAnimale
     {
         DbContext.Add(entity);
     }
+
+    public async Task<Precebo?> ObtenerSegunId(PreceboId id, CancellationToken cancellationToken = default)
+    {
+        return await DbContext.Set<Precebo>().FirstOrDefaultAsync(x => x.Id == id)!;
+    }
+
+    public void AgregarCeba(Ceba entity)
+    {
+        DbContext.Add(entity);
+    }
+
+    public async Task<Ceba?> ObtenerSegunId(CebaId id, CancellationToken cancellationToken = default)
+    {
+        return await DbContext.Set<Ceba>().FirstOrDefaultAsync(x => x.Id == id)!;
+    }
+
+    public void AgregarSalidaCeba(SalidaCeba entity)
+    {
+        DbContext.Add(entity);
+    }
 }
