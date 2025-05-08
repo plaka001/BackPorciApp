@@ -3,8 +3,10 @@ using Dominio.Abstractions;
 using Dominio.Animales.Repository;
 using Dominio.EspacioFisicos.Repository;
 using Dominio.granjas.repository;
+using Dominio.Salud.Repository;
 using Infrastructura.Data;
 using Infrastructura.Repositorios;
+using Infrastructura.Repositorios.Salud;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,6 +27,7 @@ public static class DependencyInjection
             options.UseSqlServer(connectionString);
         });
 
+        services.AddScoped<IPlanSanitarioRepository, PlanSanitarioRepository>();
         services.AddScoped<IGranjaRepository, GranjaRepository>();
         services.AddScoped<IEspacioFisicoRepository, EspacioFisicoRepository>();
         services.AddScoped<IAnimalesRepository, AnimalesRepository>();
