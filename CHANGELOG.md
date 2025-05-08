@@ -3,6 +3,11 @@
 
 Todos los cambios destacables del back están documentados en este archivo
 
+## [1.6.0] - 2025-05-07
+
+### Add
+Creacion plan sanitario con unit test 
+
 
 ## [1.6.0] - 2025-05-03
 
