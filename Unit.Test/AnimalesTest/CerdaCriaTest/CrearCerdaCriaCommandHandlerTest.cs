@@ -36,7 +36,7 @@ public class CrearCerdaCriaCommandHandlerTest
     {
         // Arrange
         var command = new CrearCerdaCriaCommand(
-            Guid.NewGuid(), "ID123", EstadoProductivo.Montas, DateTime.Now, Guid.NewGuid(), 1, Guid.NewGuid());
+            Guid.NewGuid(), "ID123", EstadoProductivo.Servida, DateTime.Now, Guid.NewGuid(), 1, Guid.NewGuid());
 
         var existingCerda = CerdaCria.Create(
             new GranjaId(command.GranjaId),
@@ -64,7 +64,7 @@ public class CrearCerdaCriaCommandHandlerTest
     {
         // Arrange
         var command = new CrearCerdaCriaCommand(
-            Guid.NewGuid(), "ID123", EstadoProductivo.Montas, DateTime.Now, Guid.NewGuid(), 1, Guid.NewGuid());
+            Guid.NewGuid(), "ID123", EstadoProductivo.Servida, DateTime.Now, Guid.NewGuid(), 1, Guid.NewGuid());
 
 
         _mockAnimalesRepository.Setup(r => r.ObtenerCerdaByIdentificacion(command.Identificacion))
@@ -86,11 +86,11 @@ public class CrearCerdaCriaCommandHandlerTest
     {
         // Arrange
         var command = new CrearCerdaCriaCommand(
-            Guid.NewGuid(), "ID123", EstadoProductivo.Retiro, DateTime.Now, Guid.NewGuid(), 1, Guid.NewGuid());
+            Guid.NewGuid(), "ID123", EstadoProductivo.Reformada, DateTime.Now, Guid.NewGuid(), 1, Guid.NewGuid());
 
         // Usamos FakeEspacioFisico con EsTipoCorrecto = false
         var fakeEspacio = new FakeEspacioFisico(
-            tipoEspacio: "Paridera",
+            tipoEspacio: "Reformada",
             tieneCapacidad: true,
             esTipoCorrecto: false);
 
@@ -112,11 +112,11 @@ public class CrearCerdaCriaCommandHandlerTest
     {
         // Arrange
         var command = new CrearCerdaCriaCommand(
-            Guid.NewGuid(), "ID123", EstadoProductivo.Paridera, DateTime.Now, Guid.NewGuid(), 20, Guid.NewGuid());
+            Guid.NewGuid(), "ID123", EstadoProductivo.Ingreso, DateTime.Now, Guid.NewGuid(), 20, Guid.NewGuid());
 
         // Fake con capacidad = false
         var fakeEspacio = new FakeEspacioFisico(
-            tipoEspacio: "Paridera",
+            tipoEspacio: "Ingreso",
             tieneCapacidad: false, // ← Sin capacidad
             esTipoCorrecto: true);
 
@@ -139,11 +139,11 @@ public class CrearCerdaCriaCommandHandlerTest
     {
         // Arrange
         var command = new CrearCerdaCriaCommand(
-            Guid.NewGuid(), "ID123", EstadoProductivo.Paridera, DateTime.Now, Guid.NewGuid(), 1, Guid.NewGuid());
+            Guid.NewGuid(), "ID123", EstadoProductivo.Servida, DateTime.Now, Guid.NewGuid(), 1, Guid.NewGuid());
 
         // Fake con todo correcto
         var fakeEspacio = new FakeEspacioFisico(
-            tipoEspacio: "Paridera",
+            tipoEspacio: "Servida",
             tieneCapacidad: true,
             esTipoCorrecto: true);
 

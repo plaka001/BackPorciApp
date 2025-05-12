@@ -2,10 +2,12 @@
 
 public enum EstadoProductivo
 {
-    Montas = 0,
-    Gestacion = 1,
-    Paridera = 2,
-    Lactancia = 3,
-    Destete = 4,
-    Retiro = 5
+    Ingreso = 0,
+    Servida = 1,
+    Gestante = 2,
+    Lactante = 3,
+    Vacia = 4,
+    Reformada = 5,
+    Muerta = 6
 }
+

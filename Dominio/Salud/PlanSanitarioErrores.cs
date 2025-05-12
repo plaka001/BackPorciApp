@@ -10,6 +10,11 @@ public class PlanSanitarioErrores
      "Ya existe el plan  con este nombre"
     );
 
+    public static Error PlanSanitarioNoExistente = new(
+   "PlanSanitario.NoExistente",
+   "No existe el plan solicitado"
+  );
+
 
     public static Error DebeAlMenosTenerUnEvento = new(
      "PlanSanitario.SinEventos",

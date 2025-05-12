@@ -59,10 +59,13 @@ public class EventoSanitarioProgramadoConfiguration : IEntityTypeConfiguration<E
             .HasColumnType("datetime2");
 
         // Relaciones
+
         builder.HasOne<PlanSanitario>()
-            .WithMany()
-            .HasForeignKey(e => e.PlanSanitarioId)
-            .OnDelete(DeleteBehavior.Restrict);
+          .WithMany(p => p.Eventos)  // Referencia explícita a la propiedad de navegación
+          .HasForeignKey(e => e.PlanSanitarioId)
+          .IsRequired()
+          .OnDelete(DeleteBehavior.Cascade);
+
 
         // Índices
         builder.HasIndex(e => e.TipoEntidadId);

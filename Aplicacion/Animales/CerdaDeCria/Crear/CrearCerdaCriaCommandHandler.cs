@@ -32,7 +32,7 @@ public sealed class CrearCerdaCriaCommandHandler : ICommandHandler<CrearCerdaCri
         if (cerdaExistente != null)
             return Result.Failure(CerdaCriaErrores.CerdaExistente);
 
-        var espacioFisico = await _espacioFisicosRepository.ObtenerSegunId(new EspacioFisicoId(request.EspacioFisicoId));
+        var espacioFisico = await _espacioFisicosRepository.ObtenerSegunId(new EspacioFisicoId(request.EspacioFisicoId), cancellationToken);
         if (espacioFisico == null)
             return Result.Failure(EspacioFisicoErrores.EspacioFisicoNoExistente);
 

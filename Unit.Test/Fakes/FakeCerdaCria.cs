@@ -16,7 +16,7 @@ public class FakeCerdaCria : CerdaCria
     public FakeCerdaCria(
         GranjaId granjaId = null,
         string identificacion = "ID-123",
-        EstadoProductivo estadoProductivo = EstadoProductivo.Montas,
+        EstadoProductivo estadoProductivo = EstadoProductivo.Gestante,
         EspacioFisicoId espacioFisicoId = null,
         int? numeroParto = null,
         Guid? planSanitarioId = null)
@@ -51,7 +51,7 @@ public class FakeCerdaCria : CerdaCria
     {
         return new FakeCerdaCria(
             numeroParto: 1,
-            estadoProductivo: EstadoProductivo.Gestacion
+            estadoProductivo: EstadoProductivo.Gestante
         );
     }
 }

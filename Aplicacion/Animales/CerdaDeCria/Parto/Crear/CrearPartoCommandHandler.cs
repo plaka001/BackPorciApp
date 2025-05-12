@@ -1,6 +1,7 @@
 ﻿using Application.Abstractions.Messaging;
 using Dominio.Abstractions;
 using Dominio.Animales;
+using Dominio.Animales.General;
 using Dominio.Animales.ObjectValues;
 using Dominio.Animales.Repository;
 
@@ -23,7 +24,10 @@ public sealed class CrearPartoCommandHandler : ICommandHandler<CrearPartoCommand
         if (cerdaExistente == null)
             return Result.Failure(CerdaCriaErrores.NoEncontrada);
 
+        if (cerdaExistente.EstadoProductivo != EstadoProductivo.Gestante)
+            return Result.Failure(CerdaCriaErrores.ErrorEstadoProductivo);
 
+        cerdaExistente.CambiarEstado(EstadoProductivo.Lactante);
         cerdaExistente.RegistrarParto();
         var parto = Dominio.Animales.Parto.Create(new CerdaCriaId( request.CerdaId),request.FechaDeParto,request.CantidadVivos,request.CantidadMuertos,request.PesoPromedioVivos,request.PesoPromedioMuertos,request.UsoOxitocina,request.Comentario);
         _animalesRepository.Actualizar(cerdaExistente);

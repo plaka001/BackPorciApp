@@ -36,12 +36,12 @@ public class TrasladarCerdaCriaCommandHandlerTest
     public async Task Handle_ShouldReturnFailure_WhenEspacioFisicoDoesNotExist()
     {
         // Arrange
-        var command = new TrasladarCerdaCriaCommand(Guid.NewGuid(), Guid.NewGuid(), "Id123", EstadoProductivo.Retiro);
+        var command = new TrasladarCerdaCriaCommand(Guid.NewGuid(), Guid.NewGuid(), "Id123", EstadoProductivo.Reformada);
 
         var cerda = CerdaCria.Create(
             new GranjaId(Guid.NewGuid()),
             command.IdentificacionCerda,
-            EstadoProductivo.Paridera,
+            EstadoProductivo.Reformada,
             DateTime.Now,
             DateTime.Now,
             new EspacioFisicoId(command.EspacioFisicoOld),
@@ -67,12 +67,12 @@ public class TrasladarCerdaCriaCommandHandlerTest
     public async Task Handle_ShouldReturnFailure_WhenTipoEspacioIncorrecto()
     {
         // Arrange
-        var command = new TrasladarCerdaCriaCommand(Guid.NewGuid(), Guid.NewGuid(), "Id123", EstadoProductivo.Gestacion);
+        var command = new TrasladarCerdaCriaCommand(Guid.NewGuid(), Guid.NewGuid(), "Id123", EstadoProductivo.Ingreso);
 
         var cerda = CerdaCria.Create(
             new GranjaId(Guid.NewGuid()),
             command.IdentificacionCerda,
-            EstadoProductivo.Gestacion,
+            EstadoProductivo.Ingreso,
             DateTime.Now,
             DateTime.Now,
             new EspacioFisicoId(command.EspacioFisicoOld),
@@ -119,12 +119,12 @@ public class TrasladarCerdaCriaCommandHandlerTest
     public async Task Handle_ShouldReturnFailure_WhenNoCapacity()
     {
         // Arrange
-        var command = new TrasladarCerdaCriaCommand(Guid.NewGuid(), Guid.NewGuid(), "Id123", EstadoProductivo.Gestacion);
+        var command = new TrasladarCerdaCriaCommand(Guid.NewGuid(), Guid.NewGuid(), "Id123", EstadoProductivo.Servida);
 
         var cerda = CerdaCria.Create(
             new GranjaId(Guid.NewGuid()),
             command.IdentificacionCerda,
-            EstadoProductivo.Lactancia,
+            EstadoProductivo.Ingreso,
             DateTime.Now,
             DateTime.Now,
             new EspacioFisicoId(command.EspacioFisicoOld),
@@ -135,7 +135,7 @@ public class TrasladarCerdaCriaCommandHandlerTest
         // Espacio físico antiguo
         var espacioOld = EspacioFisico.Create(
             new GranjaId(Guid.NewGuid()),
-            "Gestacion",
+            "Monta",
             10,
             1,
             0
@@ -144,7 +144,7 @@ public class TrasladarCerdaCriaCommandHandlerTest
         // Espacio físico nuevo sin capacidad (ocupamos todos los espacios)
         var espacioNew = EspacioFisico.Create(
             new GranjaId(Guid.NewGuid()),
-            "Gestacion",
+            "Monta",
             10,
             1,
             0
@@ -177,12 +177,12 @@ public class TrasladarCerdaCriaCommandHandlerTest
     public async Task Handle_ShouldTrasladarCerda_WhenAllConditionsAreMet()
     {
         // Arrange
-        var command = new TrasladarCerdaCriaCommand(Guid.NewGuid(), Guid.NewGuid(), "Id123", EstadoProductivo.Gestacion);
+        var command = new TrasladarCerdaCriaCommand(Guid.NewGuid(), Guid.NewGuid(), "Id123", EstadoProductivo.Servida);
 
         var cerda = CerdaCria.Create(
             new GranjaId(Guid.NewGuid()),
             command.IdentificacionCerda,
-            EstadoProductivo.Gestacion,
+            EstadoProductivo.Ingreso,
             DateTime.Now,
             DateTime.Now,
             new EspacioFisicoId(command.EspacioFisicoOld),
@@ -193,7 +193,7 @@ public class TrasladarCerdaCriaCommandHandlerTest
         // Espacios físicos con capacidad
         var espacioOld = EspacioFisico.Create(
             new GranjaId(Guid.NewGuid()),
-            "Gestacion",
+            "Monta",
             10,
             1,
             0
@@ -202,7 +202,7 @@ public class TrasladarCerdaCriaCommandHandlerTest
 
         var espacioNew = EspacioFisico.Create(
             new GranjaId(Guid.NewGuid()),
-            "Gestacion",
+            "Monta",
             10,
             1,
             0

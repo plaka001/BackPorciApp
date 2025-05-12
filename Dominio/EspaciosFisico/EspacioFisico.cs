@@ -86,10 +86,13 @@ public class EspacioFisico : Entity<EspacioFisicoId>
     {
         return estadoProductivo switch
         {
-            EstadoProductivo.Montas => TipoEspacio.Equals("Monta", StringComparison.OrdinalIgnoreCase),
-            EstadoProductivo.Gestacion => TipoEspacio.Equals("Gestacion", StringComparison.OrdinalIgnoreCase),
-            EstadoProductivo.Paridera => TipoEspacio.Equals("Paridera", StringComparison.OrdinalIgnoreCase),
-            _ => false
+            EstadoProductivo.Ingreso => TipoEspacio.Equals("Ingreso", StringComparison.OrdinalIgnoreCase),
+            EstadoProductivo.Servida => TipoEspacio.Equals("Monta", StringComparison.OrdinalIgnoreCase),
+            EstadoProductivo.Gestante => TipoEspacio.Equals("Gestacion", StringComparison.OrdinalIgnoreCase),
+            EstadoProductivo.Lactante => TipoEspacio.Equals("Paridera", StringComparison.OrdinalIgnoreCase),
+            EstadoProductivo.Vacia => TipoEspacio.Equals("Monta", StringComparison.OrdinalIgnoreCase),
+            EstadoProductivo.Reformada or EstadoProductivo.Muerta => true, 
         };
     }
+
 }

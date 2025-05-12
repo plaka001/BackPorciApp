@@ -34,8 +34,7 @@ public class RegistrarDesteteCommandHandler : ICommandHandler<RegistrarDesteteCo
         var espacioFisicoNew = await _espacioFisicoRepository.ObtenerSegunTipo(TipoEspacio.Monta);
         if (espacioFisico == null || espacioFisicoNew == null) return Result.Failure(EspacioFisicoErrores.TipoEspacioIncorrectoOSinCapacidad);
 
-        cerdaCria.CambiarEstado(0);
-        cerdaCria.Trasladar(espacioFisicoNew.Id!, request.FechaDestete, EstadoProductivo.Montas);
+        cerdaCria.Trasladar(espacioFisicoNew.Id!, request.FechaDestete, EstadoProductivo.Vacia);
         espacioFisico.DecrementarCapacidadOcupada(1);
         espacioFisicoNew.IncrementarCapacidadOcupada(1);
         _animalesRepository.Actualizar(cerdaCria);

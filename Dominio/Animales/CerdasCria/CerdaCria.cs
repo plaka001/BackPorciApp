@@ -71,14 +71,15 @@ public class CerdaCria : Entity<CerdaCriaId>
 
     // Métodos para cambiar estado
     public void CambiarEstado(EstadoProductivo nuevoEstado)
-    {
+    {        
         EstadoProductivo = nuevoEstado;
+
     }
 
     public virtual void RegistrarParto()
     {
         NumeroParto += 1;
-        EstadoProductivo = EstadoProductivo.Paridera;
+        EstadoProductivo = EstadoProductivo.Vacia;
     }
 
     public void Trasladar(EspacioFisicoId nuevoEspacioId, DateTime fechaTraslado, EstadoProductivo estadoProductivo)
@@ -89,11 +90,30 @@ public class CerdaCria : Entity<CerdaCriaId>
         if (fechaTraslado > DateTime.UtcNow)
             throw new ArgumentException("La fecha de traslado no puede ser futura");
 
+        if (!EsTransicionValida(EstadoProductivo, estadoProductivo))
+            throw new ArgumentException($"Transición de estado inválida: {EstadoProductivo} → {estadoProductivo}");
+
+
         EspacioFisicoId = nuevoEspacioId;
         FechaUltimoTraslado = fechaTraslado;
         EstadoProductivo = estadoProductivo;
 
         // Opcional: Evento de dominio para notificar el traslado
         // AddDomainEvent(new CerdaTrasladada(Id, nuevoEspacioId, fechaTraslado));
+    }
+
+    private bool EsTransicionValida(EstadoProductivo actual, EstadoProductivo nuevo)
+    {
+        return (actual, nuevo) switch
+        {
+            (EstadoProductivo.Ingreso, EstadoProductivo.Servida) => true,
+            (EstadoProductivo.Servida, EstadoProductivo.Gestante) => true,
+            (EstadoProductivo.Gestante, EstadoProductivo.Lactante) => true,
+            (EstadoProductivo.Lactante, EstadoProductivo.Vacia) => true,
+            (EstadoProductivo.Vacia, EstadoProductivo.Servida) => true,
+            (_, EstadoProductivo.Reformada) => true,
+            (_, EstadoProductivo.Muerta) => true,
+            _ => false
+        };
     }
 }

@@ -3,6 +3,12 @@
 
 Todos los cambios destacables del back están documentados en este archivo
 
+
+## [1.7.0] - 2025-05-11
+
+### Add
+Creacion de eventos preogramados con unit test y ajuste en entidades de tipo estado productivo
+
 ## [1.6.0] - 2025-05-07
 
 ### Add

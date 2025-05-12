@@ -130,7 +130,7 @@ public class RegistrarDesteteCommandHandlerTest
     {
         // Arrange
         var fakeParto = new FakeParto();
-        var fakeCerda = new FakeCerdaCria();
+        var fakeCerda = new FakeCerdaCria(estadoProductivo: EstadoProductivo.Lactante);
         var espacioActual = EspacioFisico.Create(
             GranjaId.New(),
             "Gestación",
@@ -179,7 +179,7 @@ public class RegistrarDesteteCommandHandlerTest
         Assert.True(result.IsSuccess);
 
         // Verifica cambios en la cerda
-        Assert.Equal(EstadoProductivo.Montas, fakeCerda.EstadoProductivo);
+        Assert.Equal(EstadoProductivo.Vacia, fakeCerda.EstadoProductivo);
         Assert.Equal(espacioMonta.Id, fakeCerda.EspacioFisicoId);
 
         // Verifica cambios en espacios físicos
@@ -204,8 +204,8 @@ public class RegistrarDesteteCommandHandlerTest
     {
         // Arrange
         var fakeParto = new FakeParto();
-        var fakeCerda = new FakeCerdaCria();
-        var espacioActual = EspacioFisico.Create(GranjaId.New(), "Gestación", 10, 1);
+        var fakeCerda = new FakeCerdaCria(estadoProductivo: EstadoProductivo.Lactante);
+        var espacioActual = EspacioFisico.Create(GranjaId.New(), "Vacia", 10, 1);
         var espacioMonta = EspacioFisico.Create(GranjaId.New(), "Monta", 5, 1);
 
         var command = new RegistrarDesteteCommand(

@@ -41,6 +41,11 @@ public class Result
         => value is not null
         ? Success(value)
         : Failure<TValue>(Error.NullValue);
+
+    public static Result Failure(object errorEstadoProductivo)
+    {
+        throw new NotImplementedException();
+    }
 }
 
 public class Result<TValue> : Result

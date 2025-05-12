@@ -1,6 +1,7 @@
 ﻿using Application.Abstractions.Messaging;
 using Dominio.Abstractions;
 using Dominio.Animales;
+using Dominio.Animales.General;
 using Dominio.Animales.Repository;
 using Dominio.EspacioFisicos;
 using Dominio.EspacioFisicos.ObjectValues;
@@ -32,6 +33,7 @@ public sealed class TrasladarCerdaCriaCommandHandler : ICommandHandler<Trasladar
         var espacioFisicoNew = await _espacioFisicosRepository.ObtenerSegunId(new EspacioFisicoId(request.EspacioFisicoNew));
         if (espacioFisicoNew == null || espacioFisicoOld == null)
             return Result.Failure(EspacioFisicoErrores.EspacioFisicoNoExistente);
+
 
         if (!espacioFisicoNew.EsTipoCorrectoParaEstadoProductivo(request.EstadoProductivo))
             return Result.Failure(EspacioFisicoErrores.TipoEspacioIncorrecto);

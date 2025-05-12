@@ -2,8 +2,6 @@
 using Dominio.granjas.ObjectValues;
 using Dominio.Salud.Enums;
 using Dominio.Salud.ObjectValues;
-using System;
-using System.Collections.Generic;
 
 namespace Dominio.Salud
 {
