@@ -25,7 +25,7 @@ public sealed class CrearPartoCommandHandler : ICommandHandler<CrearPartoCommand
             return Result.Failure(CerdaCriaErrores.NoEncontrada);
 
         if (cerdaExistente.EstadoProductivo != EstadoProductivo.Gestante)
-            return Result.Failure(CerdaCriaErrores.ErrorEstadoProductivo);
+            return Result.Failure(CerdaCriaErrores.ErrorEstadoProductivoCerdaGestante);
 
         cerdaExistente.CambiarEstado(EstadoProductivo.Lactante);
         cerdaExistente.RegistrarParto();

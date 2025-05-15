@@ -19,7 +19,6 @@ namespace Aplicacion
                 config.AddOpenBehavior(typeof(ValidationBehavior<,>));
             });
 
-            // Registro de validadores FluentValidation (CORRECCIÓN DEL NOMBRE DEL MÉTODO)
             services.AddValidatorsFromAssembly(typeof(DependencyInjection).Assembly);
 
 

@@ -4,6 +4,11 @@
 Todos los cambios destacables del back están documentados en este archivo
 
 
+## [1.8.0] - 2025-05-14
+
+### Add
+Creacion de servicio y pruebas unitarias 
+
 ## [1.7.0] - 2025-05-11
 
 ### Add
