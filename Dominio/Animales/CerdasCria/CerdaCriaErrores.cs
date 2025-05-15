@@ -15,8 +15,13 @@ public class CerdaCriaErrores
         "La cerda no existe"
         );
 
-    public static Error ErrorEstadoProductivo = new(
+    public static Error ErrorEstadoProductivoCerdaGestante = new(
         "Cerda.EstadoErroneo",
         "Solo una cerda gestante puede parir"
         );
+
+    public static Error ErrorEstadoProductivoTrasladoMonta = new(
+      "Cerda.EstadoErroneo",
+      "Para que la cerda sea montada debe estar en estado ingreso o vacia"
+      );
 }

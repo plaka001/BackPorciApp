@@ -1,5 +1,6 @@
 ﻿using Aplicacion.Animales.CerdaDeCria.Crear;
 using Aplicacion.Animales.CerdaDeCria.Parto.Crear;
+using Aplicacion.Animales.CerdaDeCria.Servicio.Registrar;
 using Aplicacion.Animales.CerdaDeCria.Trasladar;
 using Aplicacion.Animales.Lechones.Ceba.RegistrarEntrada;
 using Aplicacion.Animales.Lechones.Ceba.RegistrarSalida;
@@ -30,6 +31,17 @@ public class AnimalesController : ControllerBase
         if (result.IsFailure) return BadRequest(result.Error);
         return Ok(result);
     }
+
+
+    [HttpPost("RegitrarServicioCerdaCria")]
+    public async Task<IActionResult> RegitrarServicioCerdaCria([FromBody] RegistrarServicioCerdaRequest request, CancellationToken cancellationToken)
+    {
+        var command = new RegistrarServicioCerdaCommand(request.IdentificacionCerda,request.FechaServicio);
+        var result = await _sender.Send(command);
+        if (result.IsFailure) return BadRequest(result.Error);
+        return Ok(result);
+    }
+
 
     [HttpPost("TrasladarCerdaCria")]
     public async Task<IActionResult> TrasladarCerdaCria([FromBody] TrasladarCerdaCriaRequest request, CancellationToken cancellationToken)
