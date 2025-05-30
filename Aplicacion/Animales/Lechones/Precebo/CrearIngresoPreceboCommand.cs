@@ -2,4 +2,4 @@
 
 namespace Aplicacion.Animales.Lechones.Precebo;
 
-public record class CrearIngresoPreceboCommand(Guid DesteteId, DateTime FechaIngreso, decimal PesoPromedio, string Comentario) : ICommand;
+public record class CrearIngresoPreceboCommand(Guid DesteteId, Guid EspacioFisicoId, DateTime FechaIngreso, decimal PesoPromedio, string Comentario) : ICommand;

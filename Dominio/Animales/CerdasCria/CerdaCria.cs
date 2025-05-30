@@ -79,8 +79,17 @@ public class CerdaCria : Entity<CerdaCriaId>
     public virtual void RegistrarParto()
     {
         NumeroParto += 1;
-        EstadoProductivo = EstadoProductivo.Vacia;
+        EstadoProductivo = EstadoProductivo.Lactante;
     }
+
+    public void Destetar(EspacioFisicoId nuevoEspacio, DateTime fecha)
+    {
+        if (EstadoProductivo != EstadoProductivo.Lactante)
+            throw new InvalidOperationException("La cerda no está lactante.");
+
+        Trasladar(nuevoEspacio, fecha, EstadoProductivo.Vacia);
+    }
+
 
     public void Trasladar(EspacioFisicoId nuevoEspacioId, DateTime fechaTraslado, EstadoProductivo estadoProductivo)
     {

@@ -21,7 +21,13 @@ public class CerdaCriaErrores
         );
 
     public static Error ErrorEstadoProductivoTrasladoMonta = new(
-      "Cerda.EstadoErroneo",
-      "Para que la cerda sea montada debe estar en estado ingreso o vacia"
+        "Cerda.EstadoErroneo",
+        "Para que la cerda sea montada debe estar en estado ingreso o vacia"
       );
+
+    public static Error EstadoProductivoNoLactante = new(
+        "Cerda.Destete",
+        "Para registrar el destete la cerda debe estar en el estado lactante"
+    );
+
 }

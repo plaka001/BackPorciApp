@@ -6,7 +6,6 @@ using Dominio.Salud;
 using Dominio.Salud.Enums;
 using Dominio.Salud.ObjectValues;
 using Dominio.Salud.Repository;
-using System.Numerics;
 
 namespace Aplicacion.Salud.PlanesSanitarios.Asignar;
 

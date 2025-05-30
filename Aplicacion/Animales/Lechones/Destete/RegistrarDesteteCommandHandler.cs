@@ -29,18 +29,26 @@ public class RegistrarDesteteCommandHandler : ICommandHandler<RegistrarDesteteCo
 
         var cerdaCria = await _animalesRepository.ObtenerSegunId(parto.CerdaCriaId);
         if (cerdaCria == null) return Result.Failure(CerdaCriaErrores.NoEncontrada);
+        if (cerdaCria.EstadoProductivo != EstadoProductivo.Lactante)
+            return Result.Failure(CerdaCriaErrores.EstadoProductivoNoLactante);
 
-        var espacioFisico = await _espacioFisicoRepository.ObtenerSegunId(cerdaCria.EspacioFisicoId);
-        var espacioFisicoNew = await _espacioFisicoRepository.ObtenerSegunTipo(TipoEspacio.Monta);
-        if (espacioFisico == null || espacioFisicoNew == null) return Result.Failure(EspacioFisicoErrores.TipoEspacioIncorrectoOSinCapacidad);
 
-        cerdaCria.Trasladar(espacioFisicoNew.Id!, request.FechaDestete, EstadoProductivo.Vacia);
-        espacioFisico.DecrementarCapacidadOcupada(1);
-        espacioFisicoNew.IncrementarCapacidadOcupada(1);
-        _animalesRepository.Actualizar(cerdaCria);
-        _espacioFisicoRepository.Actualizar(espacioFisicoNew);
-        _espacioFisicoRepository.Actualizar(espacioFisico);
+        var espacioFisicoActual = await _espacioFisicoRepository.ObtenerSegunId(cerdaCria.EspacioFisicoId);
+        var espacioFisicoMonta = await _espacioFisicoRepository.ObtenerSegunTipo(TipoEspacio.Monta);
+
+        if (espacioFisicoActual == null || espacioFisicoMonta == null) return Result.Failure(EspacioFisicoErrores.TipoEspacioIncorrectoOSinCapacidad);
+        if (!espacioFisicoMonta.TieneCapacidadDisponible())
+            return Result.Failure(EspacioFisicoErrores.SinCapacidad);
+
+
         var destete = Dominio.Animales.Lechones.Destete.Create(new PartoId(request.PartoId), request.FechaDestete, request.CantidadVivos, request.CantidadMuertos, request.PesoPromedio, request.Comentario);
+
+        cerdaCria.Destetar(espacioFisicoMonta.Id!, request.FechaDestete);
+        espacioFisicoActual.DecrementarCapacidadOcupada(1);
+        espacioFisicoMonta.IncrementarCapacidadOcupada(1);
+        _animalesRepository.Actualizar(cerdaCria);
+        _espacioFisicoRepository.Actualizar(espacioFisicoMonta);
+        _espacioFisicoRepository.Actualizar(espacioFisicoActual);
         _animalesRepository.AgregarDestete(destete);
         await _unitOfWork.SaveChangesAsync();
         return Result.Success();

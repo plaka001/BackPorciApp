@@ -3,6 +3,11 @@
 
 Todos los cambios destacables del back están documentados en este archivo
 
+## [1.9.0] - 2025-05-29
+
+### Add
+Se agrega servicio prenez  y se ajustan pruebas unitarias 
+
 
 ## [1.8.0] - 2025-05-14
 
