@@ -35,4 +35,9 @@ public class FakeEspacioFisico : EspacioFisico
 
     public override bool EsTipoCorrectoParaEstadoProductivo(EstadoProductivo estadoProductivo)
         => EsTipoCorrectoResult;
+
+    public static FakeEspacioFisico  DeTipo(string tipoEspacio, bool tieneCapacidad = true) => new(
+        tieneCapacidad: tieneCapacidad,
+        tipoEspacio : tipoEspacio
+    );
 }

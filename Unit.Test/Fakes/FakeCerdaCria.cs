@@ -47,12 +47,14 @@ public class FakeCerdaCria : CerdaCria
     }
 
     // Método de fábrica para simplificar creación
-    public static FakeCerdaCria CreateDefault()
+    public static FakeCerdaCria CreateDefault(EstadoProductivo estadoProductivo)
     {
-        return new FakeCerdaCria(
-            numeroParto: 1,
-            estadoProductivo: EstadoProductivo.Gestante
-        );
+        return new(numeroParto: 1,estadoProductivo: estadoProductivo);
+    }
+
+    internal static FakeCerdaCria ConEstado(EstadoProductivo estadoProductivo)
+    {
+        return new( estadoProductivo: estadoProductivo);
     }
 }
 

@@ -79,7 +79,7 @@ public class AsignarPlanSanitarioCommandHandlerTest
 
         _mockAnimalesRepository
             .Setup(r => r.ObtenerSegunId(It.IsAny<CerdaCriaId>(), It.IsAny<CancellationToken>()))
-            .ReturnsAsync(FakeCerdaCria.CreateDefault);
+            .ReturnsAsync(FakeCerdaCria.CreateDefault(Dominio.Animales.General.EstadoProductivo.Ingreso));
 
         var result = await _handler.Handle(command, CancellationToken.None);
 
@@ -99,7 +99,7 @@ public class AsignarPlanSanitarioCommandHandlerTest
 
         _mockAnimalesRepository
             .Setup(r => r.ObtenerSegunId(It.IsAny<CerdaCriaId>(), It.IsAny<CancellationToken>()))
-            .ReturnsAsync(FakeCerdaCria.CreateDefault);
+            .ReturnsAsync(FakeCerdaCria.CreateDefault(estadoProductivo: Dominio.Animales.General.EstadoProductivo.Ingreso));
 
         _mockUnitOfWork
             .Setup(u => u.SaveChangesAsync(It.IsAny<CancellationToken>()))

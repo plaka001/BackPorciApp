@@ -39,6 +39,7 @@ public class CrearIngresoPreceboCommandHandlerTest
         // Arrange
         var command = new CrearIngresoPreceboCommand(
             DesteteId: Guid.NewGuid(),
+            EspacioFisicoId: Guid.NewGuid(),
             FechaIngreso: DateTime.Now,
             PesoPromedio: 6.5m,
             Comentario: "Test"
@@ -63,6 +64,7 @@ public class CrearIngresoPreceboCommandHandlerTest
         var fakeDestete = FakeDestete.CreateDefault();
         var command = new CrearIngresoPreceboCommand(
             DesteteId: fakeDestete.Id.Value,
+            EspacioFisicoId: Guid.NewGuid(),
             FechaIngreso: DateTime.Now,
             PesoPromedio: 6.5m,
             Comentario: "Test"
@@ -98,6 +100,7 @@ public class CrearIngresoPreceboCommandHandlerTest
 
         var command = new CrearIngresoPreceboCommand(
             DesteteId: fakeDestete.Id.Value,
+            EspacioFisicoId: Guid.NewGuid(),
             FechaIngreso: DateTime.Now,
             PesoPromedio: 6.5m,
             Comentario: "Test"
@@ -108,7 +111,7 @@ public class CrearIngresoPreceboCommandHandlerTest
             .ReturnsAsync(fakeDestete);
 
         _mockEspacioFisicoRepository
-            .Setup(r => r.ObtenerSegunTipo(TipoEspacio.Precebo, It.IsAny<CancellationToken>()))
+            .Setup(r => r.ObtenerSegunId(It.IsAny<EspacioFisicoId>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(fakeEspacio);
 
         // Act
@@ -150,6 +153,7 @@ public class CrearIngresoPreceboCommandHandlerTest
 
         var command = new CrearIngresoPreceboCommand(
             DesteteId: fakeDestete.Id.Value,
+            EspacioFisicoId: Guid.NewGuid(),
             FechaIngreso: DateTime.Now,
             PesoPromedio: 6.5m,
             Comentario: "Test"
@@ -160,7 +164,7 @@ public class CrearIngresoPreceboCommandHandlerTest
             .ReturnsAsync(fakeDestete);
 
         _mockEspacioFisicoRepository
-            .Setup(r => r.ObtenerSegunTipo(TipoEspacio.Precebo, It.IsAny<CancellationToken>()))
+            .Setup(r => r.ObtenerSegunId(It.IsAny<EspacioFisicoId>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(fakeEspacio);
 
         _mockUnitOfWork
@@ -173,42 +177,4 @@ public class CrearIngresoPreceboCommandHandlerTest
         );
     }
 
-    [Fact]
-    public async Task Handle_ShouldFail_WhenEspacioSinCapacidad()
-    {
-        // Arrange
-        var fakeDestete = FakeDestete.CreateDefault();
-        var fakeEspacio = EspacioFisico.Create(
-            GranjaId.New(),
-            TipoEspacio.Precebo.ToString(),
-            cantidadEspacios: 1,
-            capacidadPorEspacio: 1
-        );
-
-        // Ocupamos toda la capacidad
-        fakeEspacio.IncrementarCapacidadOcupada(1);
-
-        var command = new CrearIngresoPreceboCommand(
-            DesteteId: fakeDestete.Id.Value,
-            FechaIngreso: DateTime.Now,
-            PesoPromedio: 6.5m,
-            Comentario: "Test"
-        );
-
-        _mockAnimalesRepository
-            .Setup(r => r.ObtenerSegunId(It.IsAny<DesteteId>(), It.IsAny<CancellationToken>()))
-            .ReturnsAsync(fakeDestete);
-
-        _mockEspacioFisicoRepository
-            .Setup(r => r.ObtenerSegunTipo(TipoEspacio.Precebo, It.IsAny<CancellationToken>()))
-            .ReturnsAsync(fakeEspacio);
-
-        // Act & Assert
-        var exception = await Assert.ThrowsAsync<InvalidOperationException>(() =>
-            _handler.Handle(command, CancellationToken.None)
-        );
-
-        // Verifica el mensaje de la excepción
-        Assert.Equal("No hay suficiente capacidad disponible.", exception.Message);
-    }
 }

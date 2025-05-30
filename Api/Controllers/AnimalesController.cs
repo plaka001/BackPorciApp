@@ -1,5 +1,6 @@
 ﻿using Aplicacion.Animales.CerdaDeCria.Crear;
 using Aplicacion.Animales.CerdaDeCria.Parto.Crear;
+using Aplicacion.Animales.CerdaDeCria.Prenez;
 using Aplicacion.Animales.CerdaDeCria.Servicio.Registrar;
 using Aplicacion.Animales.CerdaDeCria.Trasladar;
 using Aplicacion.Animales.Lechones.Ceba.RegistrarEntrada;
@@ -52,6 +53,16 @@ public class AnimalesController : ControllerBase
         return Ok(result);
     }
 
+
+    [HttpPost("RegistrarPrenezCerdaCria")]
+    public async Task<IActionResult> RegistrarPrenezCerdaCria([FromBody] ConfirmarPrenezCerdaRequest request, CancellationToken cancellationToken)
+    {
+        var command = new ConfirmarPrenezCerdaCommand(request.IdentificacionCerda,request.FechaConfirmacion,request.EstaPreñada);
+        var result = await _sender.Send(command);
+        if (result.IsFailure) return BadRequest(result.Error);
+        return Ok(result);
+    }
+
     [HttpPost("RegistrarParto")]
     public async Task<IActionResult> RegistrarParto([FromBody] CrearPartoRequest request, CancellationToken cancellationToken)
     {
@@ -75,7 +86,7 @@ public class AnimalesController : ControllerBase
     [HttpPost("RegistrarPrecebo")]
     public async Task<IActionResult> RegistrarPrecebo([FromBody] CrearIngresoPreceboRequest request, CancellationToken cancellationToken)
     {
-        var command = new CrearIngresoPreceboCommand(request.DesteteId,request.FechaIngreso,request.PesoPromedio,request.Comentario);
+        var command = new CrearIngresoPreceboCommand(request.DesteteId,request.EspacioFisicoId, request.FechaIngreso,request.PesoPromedio,request.Comentario);
         var result = await _sender.Send(command);
         if (result.IsFailure) return BadRequest(result.Error);
         return Ok(result);

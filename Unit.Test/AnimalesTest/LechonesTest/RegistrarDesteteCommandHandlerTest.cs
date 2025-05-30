@@ -95,7 +95,7 @@ public class RegistrarDesteteCommandHandlerTest
     {
         // Arrange
         var fakeParto = new FakeParto();
-        var fakeCerda = new FakeCerdaCria(); // Asume que existe este fake
+        var fakeCerda = new FakeCerdaCria(estadoProductivo:EstadoProductivo.Lactante); // Asume que existe este fake
         var command = new RegistrarDesteteCommand(
             PartoId: fakeParto.Id.Value,
             FechaDestete: DateTime.Now,
