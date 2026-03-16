@@ -1,6 +1,5 @@
 ﻿using Aplicacion.Abstractions;
 using FluentValidation;
-using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Aplicacion
